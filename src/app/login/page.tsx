@@ -20,6 +20,21 @@ export default function Instagram() {
   const handleSignUpRedirect = () => {
     router.push("/signup");
   };
+  const handleLogin = async (): Promise<void> => {
+    const response = await fetch("/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    if (response.ok) {
+      router.push("/post");
+    } else {
+      console.error("Login failed");
+    }
+  };
 
   return (
     <div className="flex bg-black justify-center items-center h-screen">
@@ -48,7 +63,10 @@ export default function Instagram() {
           />
         </CardContent>
         <CardFooter className="flex flex-col">
-          <Button className="bg-blue-500 w-full h-12 flex justify-center items-center text-white">
+          <Button
+            onClick={handleLogin}
+            className="bg-blue-500 w-full h-12 flex justify-center items-center text-white"
+          >
             Log in
           </Button>
           <div className="flex text-center text-white mt-4 flex-col">

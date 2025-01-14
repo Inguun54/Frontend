@@ -1,6 +1,7 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -14,12 +15,10 @@ import { Button } from "@/components/ui/button";
 export default function Instagram() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
-
-  const handleButtonClick = () => {
+  const router = useRouter();
+  const handleButtonClick = async () => {
     if (!email.includes("@")) {
       return setError("Email must include @");
     }
@@ -27,7 +26,20 @@ export default function Instagram() {
       return setError("Password must contain at least 8 characters");
     }
     setError("");
+    const input = { email, username, password, profileImage: "asdf" };
+
+    const response = await fetch("https://ig-server-tain.onrender.com/signup", {
+      method: "POST",
+      body: JSON.stringify(input),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+    localStorage.setItem("token", data.token);
     alert("Successfully signed up!");
+    router.push("/post");
   };
 
   return (
@@ -42,18 +54,6 @@ export default function Instagram() {
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-x-5 gap-y-3">
-          <Input
-            className="bg-[#121212] text-white border-[#858585] border-solid rounded"
-            placeholder="First name"
-            value={firstname}
-            onChange={(e) => setFirstname(e.target.value)}
-          />
-          <Input
-            className="bg-[#121212] text-white border-[#858585] border-solid"
-            placeholder="Last name"
-            value={lastname}
-            onChange={(e) => setLastname(e.target.value)}
-          />
           <Input
             className="bg-[#121212] text-white border-[#858585] border-solid"
             placeholder="Username"
