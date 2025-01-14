@@ -4,6 +4,7 @@ import { PageContent } from "@/Customcomponent/PageContent";
 import { PostLikesDialog } from "@/Customcomponent/PostLikesDialog";
 import PageHeader from "@/Customcomponent/PageHeader";
 import { PostActions } from "@/Customcomponent/PostActions";
+import PageFooter from "@/Customcomponent/PageFooter";
 
 type CommentType = {
   _id: string;
