@@ -1,19 +1,26 @@
 "use client";
 
-import { House, Compass, Clapperboard, SquarePlus } from "lucide-react";
+import { jwtDecode } from "jwt-decode";
+import {
+  House,
+  Compass,
+  Clapperboard,
+  SquarePlus,
+  UserPen,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
-
-type ProfileType = {
-  _id: string;
-  profileImage: string;
+type decodedType = {
+  username: string;
+  userId: string;
 };
-
 const PageFooter = () => {
   const router = useRouter();
+  const token = localStorage.getItem("token");
+  const decodedToken: decodedType = jwtDecode(token ?? "");
   return (
     <div
-      style={{ gap: "82px" }}
-      className="w-[100%] sticky top-0 flex justify-center items-center gap-[16px]"
+      style={{ gap: "58px" }}
+      className="w-full fixed bottom-0 flex justify-center items-center gap-[16px] bg-black"
     >
       <div>
         <House
@@ -21,7 +28,7 @@ const PageFooter = () => {
           color="white"
           height={32}
           onClick={() => {
-            router.push("/post/");
+            router.push("/post");
           }}
         />
       </div>
@@ -33,6 +40,16 @@ const PageFooter = () => {
       </div>
       <div>
         <SquarePlus width={31} color="white" height={32} />
+      </div>
+      <div>
+        <UserPen
+          width={31}
+          color="white"
+          height={32}
+          onClick={() => {
+            router.replace(`/profile/${decodedToken?.userId}`);
+          }}
+        />
       </div>
     </div>
   );

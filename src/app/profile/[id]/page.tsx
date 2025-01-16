@@ -1,5 +1,4 @@
 "use client";
-import { Content } from "@radix-ui/react-menubar";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 

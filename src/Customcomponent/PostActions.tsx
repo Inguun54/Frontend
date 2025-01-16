@@ -26,20 +26,7 @@ export const PostActions = ({
   const router = useRouter();
 
   const isUserLiked = currentLikes.includes(userId);
-  console.log(isUserLiked);
 
-  // const profileUsersHandle = async () => {
-  //   const response = await fetch(
-  //     "https://ig-server-tain.onrender.com/getUsers",
-  //     {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: "Bearer " + localStorage.getItem("token"),
-  //       },
-  //     }
-  //   );
-  // };
   const handleCommentRedirect = (postId: string) => {
     router.push(`/post/comment/${postId}`);
   };
